@@ -14,7 +14,7 @@ Since this coin's protocol is transistion from version 1(P1) to version 2(P2), t
 ### Node Info
 
 ```py
-from nosopy.classes import NosoNode
+from nosopy import NosoNode
 
 node = NosoNode('Win1', '192.210.226.118', 8080)
 node_info = node.get_info()
@@ -33,7 +33,7 @@ else:
 ### Pool Info
 
 ```py
-from nosopy.classes import NosoPool
+from nosopy import NosoPool
 
 pool = NosoPool('ITBPool', '2.tcp.ngrok.io', 11687, 'Password')
 pool_info = pool.get_info('gcarreno-main')
