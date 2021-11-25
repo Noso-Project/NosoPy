@@ -10,10 +10,11 @@ class NosoSocket:
 
     def __init__(self, sock=None):
         if sock is None:
-            self.sock = socket.socket(
-            socket.AF_INET, socket.SOCK_STREAM)
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.sock.settimeout(30)
         else:
             self.sock = sock
+            self.sock.settimeout(30)
 
     def connect(self, host, port):
         self.sock.connect((host, port))
