@@ -1,17 +1,19 @@
 import pytest
 from nosopy import NosoPoolInfo
 
-elements = [
-    'STATUS', # Ignore
-    3,        # Hash rate
-    1,        # Fee
-    100,      # Share
-    2,        # Miners Count
-    # Miner 1
-    'Naddress1:0:30',
-    # Miner 2
-    'Naddress2:0:30'
-]
+@pytest.fixture
+def elements():
+    return [
+        'STATUS', # Ignore
+        3,        # Hash rate
+        1,        # Fee
+        100,      # Share
+        2,        # Miners Count
+        # Miner 1
+        'Naddress1:0:30',
+        # Miner 2
+        'Naddress2:0:30'
+    ]
 
 def test_NosoPoolInfo_no_args():
     pi = NosoPoolInfo('TestPool')
@@ -23,7 +25,7 @@ def test_NosoPoolInfo_no_args():
     assert pi.miners_count == -1
     assert len(pi.miners) == 0
 
-def test_NosoPoolInfo_with_args():
+def test_NosoPoolInfo_with_args(elements):
     pi = NosoPoolInfo('TestPool', *elements)
 
     assert pi.name == 'TestPool'

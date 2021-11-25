@@ -1,15 +1,17 @@
 import pytest
 from nosopy import NosoNodeInfo
 
-elements = [
-    'NODESTATUS', # Ignore
-    3,            # Peers
-    1024,         # Block
-    0,            # Pending
-    0,            # Sync Delta
-    'BRANCH',     # Branch
-    'Version'     # Version
-]
+@pytest.fixture
+def elements():
+    return [
+        'NODESTATUS', # Ignore
+        3,            # Peers
+        1024,         # Block
+        0,            # Pending
+        0,            # Sync Delta
+        'BRANCH',     # Branch
+        'Version'     # Version
+    ]
 
 def test_NosoNodeInfo_no_args():
     ni = NosoNodeInfo()
@@ -21,7 +23,7 @@ def test_NosoNodeInfo_no_args():
     assert ni.branch == 'NONE'
     assert ni.version == 'UNKNOWN'
 
-def test_NosoNodeInfo_with_args():
+def test_NosoNodeInfo_with_args(elements):
     ni = NosoNodeInfo(*elements)
 
     assert ni.peers == 3

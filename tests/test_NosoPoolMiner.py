@@ -1,11 +1,13 @@
 import pytest
 from nosopy import NosoPoolMiner
 
-elements = [
-    'TestAddress', # Address
-    120,           # Balance
-    30             # Blocks until payment
-]
+@pytest.fixture
+def elements():
+    return [
+        'TestAddress', # Address
+        120,           # Balance
+        30             # Blocks until payment
+    ]
 
 def test_NosoPoolMiner_no_args():
     miner = NosoPoolMiner()
@@ -14,7 +16,7 @@ def test_NosoPoolMiner_no_args():
     assert miner.balance == -1
     assert miner.blocks_until_payment == -1
 
-def test_NosoPoolMiner_with_args():
+def test_NosoPoolMiner_with_args(elements):
     miner = NosoPoolMiner(*elements)
 
     assert miner.address == 'TestAddress'
