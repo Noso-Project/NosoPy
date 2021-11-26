@@ -9,7 +9,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name='nosopy',
-    version='0.4.3',
+    version='0.4.4',
     description='Set of classes and tools to communicate with a Noso wallet using NosoP',
     url='https://github.com/Noso-Project/NosoPy',
     license='Unlicense',
