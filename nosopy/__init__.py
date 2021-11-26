@@ -35,17 +35,19 @@ class NosoSocket:
 
     def receive(self, EOFChar=b'\n'):
         msg = []
-        MSGLEN = 1024 * 1024 # 1 MB
+        MSGLEN = 1024 * 1024 * 10 # 10 MB
         while len(msg) < MSGLEN:
             chunk = self.sock.recv(MSGLEN-len(msg))
             if chunk.find(EOFChar) != -1:
                 msg.append(chunk)
                 #print('Found EOFChar')
+                #print('Len msg:',len(msg))
                 return b''.join(msg).decode('UTF-8')
 
             msg.append(chunk)
-            #print('Did not found EOFChar')
-            return b''.join(msg).decode('UTF-8')
+        #print('Did not found EOFChar')
+        #print('Len msg:',len(msg))
+        return b''.join(msg).decode('UTF-8')
 
     def close(self):
         self.sock.close()
@@ -177,6 +179,8 @@ class NosoPool:
             self.sock.close()
 
         elements = response.split()
+        #print('Before last:',elements[len(elements)-2])
+        #print('Last:',elements[len(elements)-1])
 
         if elements[0] == 'STATUS':
             return NosoPoolInfo(self.name, *elements)
