@@ -123,16 +123,29 @@ class NosoPoolInfo:
             self.hash_rate = int(args[1])
             self.fee = int(args[2])
             self.share = int(args[3])
-            self.miners_count = int(args[4])
-            if self.miners_count > 0:
-                for index in range(5, len(args)):
-                    miner = args[index].split(':')
-                    mi = NosoPoolMiner(*miner)
-                    self.miners.append(mi)
+            if (args[5]) and (':' in args[5]):
+                print('Old system')
+                self.difficulty = -1
+                self.miners_count = int(args[4])
+                if self.miners_count > 0:
+                    for index in range(5, len(args)):
+                        miner = args[index].split(':')
+                        mi = NosoPoolMiner(*miner)
+                        self.miners.append(mi)
+            elif (args[6]) and (':' in args[6]):
+                print('New system')
+                self.difficulty = int(args[4])
+                self.miners_count = int(args[5])
+                if self.miners_count > 0:
+                    for index in range(6, len(args)):
+                        miner = args[index].split(':')
+                        mi = NosoPoolMiner(*miner)
+                        self.miners.append(mi)
         else:
             self.hash_rate = -1
             self.fee = -1
             self.share = -1
+            self.difficulty = -1
             self.miners_count = -1
 
 """
@@ -148,10 +161,15 @@ class NosoPoolMiner:
             self.address = args[0]
             self.balance = int(args[1])
             self.blocks_until_payment = int(args[2])
+            if len(args) > 3:
+                self.hash_rate = int(args[3])
+            else:
+                self.hash_rate = -1
         else:
             self.address = ''
             self.balance = -1
             self.blocks_until_payment = -1
+            self.hash_rate = -1
 
 """
     NosoPool
